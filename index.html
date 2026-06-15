@@ -1112,9 +1112,7 @@
     }
 
     .plb-n {
-      font-size: 10px;
-      color: var(--txt-3);
-      font-weight: 500
+      display: none
     }
 
     .plb-more-header {
@@ -3301,7 +3299,6 @@
         <div class="nps-minicard">
           <div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#93C5FD;margin-bottom:8px;">NPS Score</div>
           <div style="font-size:36px;font-weight:800;line-height:1;">${nps > 0 ? '+' : ''}${nps}</div>
-          <div style="font-size:10px;color:#93C5FD;margin-top:6px;">Basado en ${total} respuestas</div>
           <div style="margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,0.18);">
             <span style="display:inline-flex;align-items:center;gap:4px;font-size:9px;font-weight:700;color:#BFDBFE;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.2);border-radius:999px;padding:3px 9px;letter-spacing:.03em;">
               <svg xmlns="http://www.w3.org/2000/svg" width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
@@ -3383,7 +3380,7 @@
       const html = [`<div class="hm-wrap">`];
       html.push(`<div class="hm-grid">`);
       html.push(`<div class="hm-row"><div class="hm-cell hm-label"></div>`);
-      ageGroups.forEach(ag => { html.push(`<div class="hm-cell hm-header">${ag}<br><span style="font-weight:400;font-size:9px">n=${agTotals[ag]}</span></div>`); });
+      ageGroups.forEach(ag => { html.push(`<div class="hm-cell hm-header">${ag}</div>`); });
       html.push(`</div>`);
       prodList.forEach(p => {
         html.push(`<div class="hm-row">`);
@@ -3514,12 +3511,12 @@
       leftNodes.forEach(n => {
         const p = leftPos[n], col = leftColors[n], pc = pct(leftCounts[n], total);
         nodesSvg += `<rect x="${leftX}" y="${p.top}" width="${nodeW}" height="${Math.max(p.h, 1)}" rx="3" fill="${col}"/>`;
-        nodesSvg += mlabel(leftX - 12, 'end', n, `${leftCounts[n]} · ${pc}%`, p.mid);
+        nodesSvg += mlabel(leftX - 12, 'end', n, `${pc}%`, p.mid);
       });
       rightNodes.forEach(n => {
         const p = rightPos[n], pc = pct(rightCount2[n], total);
         nodesSvg += `<rect x="${rightX}" y="${p.top}" width="${nodeW}" height="${Math.max(p.h, 1)}" rx="3" fill="#5B6471"/>`;
-        nodesSvg += mlabel(rightX + nodeW + 12, 'start', n, `${rightCount2[n]} · ${pc}%`, p.mid);
+        nodesSvg += mlabel(rightX + nodeW + 12, 'start', n, `${pc}%`, p.mid);
       });
 
       const legend = leftNodes.map(n => `<div style="display:flex;align-items:center;gap:7px;"><span style="width:11px;height:11px;border-radius:3px;background:${leftColors[n]};display:inline-block;"></span><span style="font-size:11px;color:var(--txt-2);font-weight:600;">${esc(clip(n, 28))}</span></div>`).join('');
@@ -3549,9 +3546,6 @@
         }
       }
       container.innerHTML = `
-      <div style="display:flex;justify-content:flex-end;margin-bottom:6px;">
-        <div style="font-size:10.5px;color:var(--txt-3);font-weight:600;text-transform:uppercase;letter-spacing:.05em;">n = ${total} respuestas</div>
-      </div>
       <svg viewBox="0 0 ${VBW} ${VBH}" style="width:100%;height:auto;display:block;" font-family="inherit">
         <text x="${leftX + nodeW / 2}" y="12" text-anchor="middle" class="flow-head">¿Conocían el producto?</text>
         <text x="${rightX + nodeW / 2}" y="12" text-anchor="middle" class="flow-head">¿Dónde lo conocieron?</text>
@@ -3740,9 +3734,8 @@
       const headVar = 'Variedad que comprarían ►';
 
       container.innerHTML = `
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;gap:12px;flex-wrap:wrap;">
+      <div style="display:flex;justify-content:flex-start;align-items:center;margin-bottom:8px;gap:12px;flex-wrap:wrap;">
         <div style="display:flex;gap:14px;flex-wrap:wrap;">${legendHTML}</div>
-        <div style="font-size:10.5px;color:var(--txt-3);font-weight:600;text-transform:uppercase;letter-spacing:.05em;">n = ${total} respuestas</div>
       </div>
       <svg viewBox="0 0 ${VBW} ${VBH}" style="width:100%;height:auto;display:block;" font-family="inherit">
         <text x="8" y="14" text-anchor="start" class="flow-head">${esc(headFreno)}</text>
